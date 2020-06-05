@@ -14,6 +14,7 @@ import { createPaymentClient, createPaymentStrategyRegistry, PaymentMethodAction
 import { InstrumentActionCreator, InstrumentRequestSender } from '../payment/instrument';
 import { createShippingStrategyRegistry, ConsignmentActionCreator, ConsignmentRequestSender, ShippingCountryActionCreator, ShippingCountryRequestSender, ShippingStrategyActionCreator } from '../shipping';
 import { SignInEmailActionCreator, SignInEmailRequestSender } from '../signin-email';
+import { SMSCodeActionCreator, SMSCodeRequestSender } from '../sms-code';
 import { createSpamProtection, SpamProtectionActionCreator, SpamProtectionRequestSender } from '../spam-protection';
 import { StoreCreditActionCreator, StoreCreditRequestSender } from '../store-credit';
 import { SubscriptionsActionCreator, SubscriptionsRequestSender } from '../subscription';
@@ -99,6 +100,7 @@ export default function createCheckoutService(options?: CheckoutServiceOptions):
         new ShippingCountryActionCreator(new ShippingCountryRequestSender(requestSender, { locale })),
         new ShippingStrategyActionCreator(createShippingStrategyRegistry(store, requestSender)),
         new SignInEmailActionCreator(new SignInEmailRequestSender(requestSender)),
+        new SMSCodeActionCreator(new SMSCodeRequestSender(requestSender)),
         spamProtectionActionCreator,
         new StoreCreditActionCreator(new StoreCreditRequestSender(requestSender)),
         subscriptionsActionCreator

@@ -29,6 +29,7 @@ import { createShippingStrategyRegistry, ConsignmentActionCreator, ConsignmentRe
 import { getShippingAddress } from '../shipping/shipping-addresses.mock';
 import { getShippingOptions } from '../shipping/shipping-options.mock';
 import { SignInEmailActionCreator, SignInEmailRequestSender } from '../signin-email';
+import { SMSCodeActionCreator, SMSCodeRequestSender } from '../sms-code';
 import { createSpamProtection, SpamProtectionActionCreator, SpamProtectionActionType, SpamProtectionOptions, SpamProtectionRequestSender } from '../spam-protection';
 import { StoreCreditActionCreator, StoreCreditRequestSender } from '../store-credit';
 import { SubscriptionsActionCreator, SubscriptionsRequestSender } from '../subscription';
@@ -70,6 +71,8 @@ describe('CheckoutService', () => {
     let shippingCountryRequestSender: ShippingCountryRequestSender;
     let signInEmailActionCreator: SignInEmailActionCreator;
     let signInEmailRequestSender: SignInEmailRequestSender;
+    let smsCodeActionCreator: SMSCodeActionCreator;
+    let smsCodeRequestSender: SMSCodeRequestSender;
     let subscriptionsRequestSender: SubscriptionsRequestSender;
     let subscriptionsActionCreator: SubscriptionsActionCreator;
     let spamProtectionActionCreator: SpamProtectionActionCreator;
@@ -104,7 +107,9 @@ describe('CheckoutService', () => {
         jest.spyOn(subscriptionsRequestSender, 'updateSubscriptions').mockResolvedValue(getResponse({}));
 
         signInEmailRequestSender = new SignInEmailRequestSender(requestSender);
+        smsCodeRequestSender = new SMSCodeRequestSender(requestSender);
         signInEmailActionCreator = new SignInEmailActionCreator(signInEmailRequestSender);
+        smsCodeActionCreator = new SMSCodeActionCreator(smsCodeRequestSender);
 
         jest.spyOn(signInEmailRequestSender, 'sendSignInEmail').mockResolvedValue(getResponse({
             sent_email: 'foo@bar.com',
@@ -251,6 +256,7 @@ describe('CheckoutService', () => {
             new ShippingCountryActionCreator(shippingCountryRequestSender),
             shippingStrategyActionCreator,
             signInEmailActionCreator,
+            smsCodeActionCreator,
             spamProtectionActionCreator,
             new StoreCreditActionCreator(storeCreditRequestSender),
             subscriptionsActionCreator

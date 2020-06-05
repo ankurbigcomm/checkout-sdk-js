@@ -16,6 +16,7 @@ import { PaymentInitializeOptions, PaymentMethodActionCreator, PaymentRequestOpt
 import { InstrumentActionCreator } from '../payment/instrument';
 import { ConsignmentsRequestBody, ConsignmentActionCreator, ConsignmentAssignmentRequestBody, ConsignmentUpdateRequestBody, ShippingCountryActionCreator, ShippingInitializeOptions, ShippingRequestOptions, ShippingStrategyActionCreator } from '../shipping';
 import { SignInEmailActionCreator, SignInEmailRequestBody } from '../signin-email';
+import { SubmitSMSCodeRequestBody, SMSCodeActionCreator, SMSCodeRequestBody } from '../sms-code';
 import { SpamProtectionActionCreator, SpamProtectionOptions } from '../spam-protection';
 import { StoreCreditActionCreator } from '../store-credit';
 import { Subscriptions, SubscriptionsActionCreator } from '../subscription';
@@ -62,6 +63,7 @@ export default class CheckoutService {
         private _shippingCountryActionCreator: ShippingCountryActionCreator,
         private _shippingStrategyActionCreator: ShippingStrategyActionCreator,
         private _signInEmailActionCreator: SignInEmailActionCreator,
+        private _SMSCodeActionCreator: SMSCodeActionCreator,
         private _spamProtectionActionCreator: SpamProtectionActionCreator,
         private _storeCreditActionCreator: StoreCreditActionCreator,
         private _subscriptionsActionCreator: SubscriptionsActionCreator
@@ -535,6 +537,18 @@ export default class CheckoutService {
         const action = this._signInEmailActionCreator.sendSignInEmail(signInEmailRequest, options);
 
         return this._dispatch(action, { queueId: 'signInEmail' });
+    }
+
+    sendSMSCode(sendSMSCodeRequest: SMSCodeRequestBody, options?: RequestOptions): Promise<CheckoutSelectors> {
+        const action = this._SMSCodeActionCreator.sendSMSCode(sendSMSCodeRequest, options);
+
+        return this._dispatch(action, { queueId: 'smsCode' });
+    }
+
+    submitSMSCode(submitSMSCodeRequest: SubmitSMSCodeRequestBody, options?: RequestOptions): Promise<CheckoutSelectors> {
+        const action = this._SMSCodeActionCreator.submitSMSCode(submitSMSCodeRequest, options);
+
+        return this._dispatch(action, { queueId: 'smsCode' });
     }
 
     /**
