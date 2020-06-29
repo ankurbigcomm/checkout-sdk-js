@@ -4,7 +4,7 @@ import { clearErrorReducer } from '../common/error';
 import { objectMerge, objectSet } from '../common/utility';
 
 import { SMSCode } from './sms-code';
-import { SendSMSCodeAction, SMSCodeActionType } from './sms-code-actions';
+import { SendSMSCodeAction, SubmitSMSCodeAction, SMSCodeActionType } from './sms-code-actions';
 import SMSCodeState, { DEFAULT_STATE, SMSCodeErrorsState, SMSCodeStatusesState } from './sms-code-state';
 
 export default function SMSCodeReducer(
@@ -52,7 +52,7 @@ function errorsReducer(
 
 function statusesReducer(
     statuses: SMSCodeStatusesState = DEFAULT_STATE.statuses,
-    action: SendSMSCodeAction
+    action: SendSMSCodeAction | SubmitSMSCodeAction
 ): SMSCodeStatusesState {
     switch (action.type) {
     case SMSCodeActionType.SendSMSCodeRequested:
@@ -61,6 +61,13 @@ function statusesReducer(
     case SMSCodeActionType.SendSMSCodeFailed:
     case SMSCodeActionType.SendSMSCodeSucceeded:
         return objectSet(statuses, 'isSending', false);
+
+    case SMSCodeActionType.SubmitSMSCodeRequested:
+        return objectSet(statuses, 'isSubmitting', true);
+
+    case SMSCodeActionType.SubmitSMSCodeFailed:
+    case SMSCodeActionType.SendSMSCodeSucceeded:
+        return objectSet(statuses, 'isSubmitting', true);
     default:
         return statuses;
     }

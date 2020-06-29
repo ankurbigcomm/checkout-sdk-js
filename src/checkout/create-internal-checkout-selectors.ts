@@ -13,6 +13,7 @@ import { createInstrumentSelectorFactory } from '../payment/instrument';
 import { createRemoteCheckoutSelectorFactory } from '../remote-checkout';
 import { createConsignmentSelectorFactory, createShippingAddressSelectorFactory, createShippingCountrySelectorFactory, createShippingStrategySelectorFactory } from '../shipping';
 import { createSignInEmailSelectorFactory } from '../signin-email';
+import { createSMSCodeSelectorFactory } from '../sms-code';
 import { createStoreCreditSelectorFactory } from '../store-credit';
 import { createSubscriptionsSelectorFactory } from '../subscription';
 
@@ -51,6 +52,7 @@ export function createInternalCheckoutSelectorsFactory(): InternalCheckoutSelect
     const createStoreCreditSelector = createStoreCreditSelectorFactory();
     const createSubscriptionsSelector = createSubscriptionsSelectorFactory();
     const createSignInEmailSelector = createSignInEmailSelectorFactory();
+    const createSMSCodeSelector = createSMSCodeSelectorFactory();
 
     return (state, options = {}) => {
         const billingAddress = createBillingAddressSelector(state.billingAddress);
@@ -73,6 +75,7 @@ export function createInternalCheckoutSelectorsFactory(): InternalCheckoutSelect
         const subscriptions = createSubscriptionsSelector(state.subscriptions);
         const storeCredit = createStoreCreditSelector(state.storeCredit);
         const signInEmail = createSignInEmailSelector(state.signInEmail);
+        const smsCode = createSMSCodeSelector(state.smsCode);
 
         // Compose selectors
         const consignments = createConsignmentSelector(state.consignments, cart);
@@ -103,6 +106,7 @@ export function createInternalCheckoutSelectorsFactory(): InternalCheckoutSelect
             shippingCountries,
             shippingStrategies,
             signInEmail,
+            smsCode,
             subscriptions,
             storeCredit,
         };

@@ -136,6 +136,7 @@ export function getCheckoutStoreState(): CheckoutStoreState {
         shippingStrategies: { data: {}, errors: {}, statuses: {} },
         subscriptions: { errors: {}, statuses: {} },
         signInEmail: { errors: {}, statuses: {} },
+        smsCode: { errors: {}, statuses: {} },
         storeCredit: { errors: {}, statuses: {} },
     };
 }

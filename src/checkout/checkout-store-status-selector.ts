@@ -261,6 +261,8 @@ export default interface CheckoutStoreStatusSelector {
      */
     isSendingSignInEmail(): boolean;
 
+    isSubmittingSMSCode(): boolean;
+
     /**
      * Checks whether the current customer is applying a gift certificate.
      *
@@ -427,6 +429,7 @@ export function createCheckoutStoreStatusSelectorFactory(): CheckoutStoreStatusS
             isDeletingInstrument: state.instruments.isDeleting,
             isLoadingConfig: state.config.isLoading,
             isSendingSignInEmail: state.signInEmail.isSending,
+            isSubmittingSMSCode: state.smsCode.isSubmitting,
             isCustomerStepPending: isCustomerStepPending(state),
             isPaymentStepPending: isPaymentStepPending(state),
         };

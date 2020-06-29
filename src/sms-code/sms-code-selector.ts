@@ -9,6 +9,7 @@ export default interface SMSCodeSelector {
     getSMSCode(): SMSCode | undefined;
     getSendError(): Error | undefined;
     isSending(): boolean;
+    isSubmitting(): boolean;
 }
 
 export type SMSCodeSelectorFactory = (state: SMSCodeState) => SMSCodeSelector;
@@ -29,6 +30,11 @@ export function createSMSCodeSelectorFactory(): SMSCodeSelectorFactory {
         status => () => status
     );
 
+    const isSubmitting = createSelector(
+        (state: SMSCodeState) => !!state.statuses.isSubmitting,
+        status => () => status
+    );
+
     return memoizeOne((
         state: SMSCodeState = DEFAULT_STATE
     ): SMSCodeSelector => {
@@ -36,6 +42,7 @@ export function createSMSCodeSelectorFactory(): SMSCodeSelectorFactory {
             getSMSCode: getSMSCode(state),
             getSendError: getSendError(state),
             isSending: isSending(state),
+            isSubmitting: isSubmitting(state),
         };
     });
 }

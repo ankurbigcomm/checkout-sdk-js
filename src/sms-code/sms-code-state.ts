@@ -12,6 +12,7 @@ export interface SMSCodeErrorsState {
 
 export interface SMSCodeStatusesState {
     isSending?: boolean;
+    isSubmitting?: boolean;
 }
 
 export const DEFAULT_STATE: SMSCodeState = {

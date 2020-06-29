@@ -34,13 +34,13 @@ export interface SendSMSCodeFailedAction extends Action<Error> {
 }
 
 export interface SubmitSMSCodeRequestedAction extends Action {
-    type: SMSCodeActionType.SendSMSCodeRequested;
+    type: SMSCodeActionType.SubmitSMSCodeRequested;
 }
 
 export interface SubmitSMSCodeSucceededAction extends Action<SMSCode> {
-    type: SMSCodeActionType.SendSMSCodeSucceeded;
+    type: SMSCodeActionType.SubmitSMSCodeSucceeded;
 }
 
 export interface SubmitSMSCodeFailedAction extends Action<Error> {
-    type: SMSCodeActionType.SendSMSCodeFailed;
+    type: SMSCodeActionType.SubmitSMSCodeFailed;
 }

@@ -11,6 +11,7 @@ import { InstrumentState } from '../payment/instrument';
 import { RemoteCheckoutState } from '../remote-checkout';
 import { ConsignmentState, ShippingCountryState, ShippingStrategyState } from '../shipping';
 import { SignInEmailState } from '../signin-email';
+import { SMSCodeState } from '../sms-code';
 import { StoreCreditState } from '../store-credit';
 import { SubscriptionsState } from '../subscription';
 
@@ -37,6 +38,7 @@ export default interface CheckoutStoreState {
     shippingCountries: ShippingCountryState;
     shippingStrategies: ShippingStrategyState;
     signInEmail: SignInEmailState;
+    smsCode: SMSCodeState;
     subscriptions: SubscriptionsState;
     storeCredit: StoreCreditState;
 }
